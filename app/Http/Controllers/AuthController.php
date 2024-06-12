@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\UserSubscribed;
 use App\Models\User;
 use Illuminate\Auth\Events\Attempting;
 use Illuminate\Auth\Events\Registered;
@@ -27,6 +28,11 @@ class AuthController extends Controller
         Auth::login($user);
 
         event(new Registered($user));
+
+        if($request->subscribe) {
+            //! 
+            event(new UserSubscribed($user));
+        }
 
         //! Redirect
         return redirect()->route('home');

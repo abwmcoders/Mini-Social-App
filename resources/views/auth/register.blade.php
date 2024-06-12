@@ -35,6 +35,13 @@
                     <p class="error">{{ $message }}</p>
                 @enderror
             </div>
+
+            <div class="mb-4">
+                <input type="checkbox" name="subscribe" id="subscribe">
+                <label for="subscribe">Subscribe to our newsletter</label>
+            </div>
+
+
             {{--Submit button--}}
             <button class="btn">Register</button>
         </form>

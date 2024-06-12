@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\ResetPasswordController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Support\Facades\Route;
 
@@ -17,6 +18,10 @@ Route::middleware('guest')->group(function (){
     Route::post('/register', [AuthController::class, 'register']);
     Route::view('/login', 'auth.login')->name('login');
     Route::post('/login', [AuthController::class, 'login']);
+    Route::view('/forget-password', 'auth.forget-password')->name('password.request');
+    Route::post('/forget-password', [ResetPasswordController::class, 'passwordEmail']);
+    Route::view('/reset-password', [ResetPasswordController::class, 'passwordReset']);
+    Route::post('/reset-password', [ResetPasswordController::class, 'passwordUpdate'])->name('password.update');
 });
 
 Route::middleware('auth')->group(function (){
@@ -37,7 +42,6 @@ Route::middleware('auth')->group(function (){
 Route::resource('posts', PostController::class);
 
 Route::get('/{user}/posts', [DashboardController::class, 'userPosts'])->name('posts.user');
-
 
 
 
